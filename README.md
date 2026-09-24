@@ -1,10 +1,6 @@
 # outlook-draft-queue
 
-A small command-line tool I wrote to manage high-volume email outreach from markdown files via the Microsoft Graph API.
-
-The immediate problem: I was sending hundreds of emails to prospective PhD supervisors across ~25 universities, each needing a tailored body, correct attachment, and a specific send date. Copy-pasting from a document and manually attaching files in Outlook does not scale. I wanted a plain-text queue I could version-control, review as a diff, and push to drafts in one command.
-
-The secondary problem: new Outlook for Mac (2023+) broke AppleScript. The scripting bridge still responds, but it writes to an old local database that is no longer connected to the live mailbox — drafts created that way never appear. The Graph API writes directly to the server, so drafts appear everywhere instantly.
+A command-line tool for managing email outreach from plain markdown files via the Microsoft Graph API. Drafts are version-controlled, reviewable as diffs, and pushed to Outlook in one command.
 
 ---
 
@@ -139,12 +135,6 @@ python3 graph_queue.py read -n 20 --detail  # full body text
 ## Security note
 
 The token scope is `Mail.ReadWrite` — it can create/read drafts and read mail, but **cannot send**. Sending always requires a manual action in Outlook. `graph_token.json` is chmod 600 by the script and is in `.gitignore`.
-
----
-
-## Background
-
-Built as a practical tool during a structured PhD outreach campaign (121 supervisors, 24 universities, ~186 emails). The markdown queue made it easy to write all emails in one place, track which had been drafted, diff edits, and gradually schedule sends without losing track of state. The Graph API backend meant drafts showed up correctly on every device.
 
 ---
 
