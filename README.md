@@ -1,8 +1,26 @@
-# email-automation
+# Email Automation
 
-This is a tool I built to manage my email outreach entirely from the command line. I write all my emails in plain markdown files, specify attachment filenames inline, and the script searches my local machine for those files and attaches them automatically. Everything — composing, queuing, attaching, pushing to Outlook — happens in the terminal. I only open Outlook at the very end to hit send.
+I built this tool to save time in my day-to-day research email workflow.
 
-Works with new Outlook for Mac (2023+). Uses the Microsoft Graph API, so drafts show up instantly everywhere — on the Mac, in the browser, on the phone. Pure Python, no dependencies.
+I write all my emails myself as plain Markdown files. The tool handles the repetitive parts: finding local attachments, preparing emails, and creating Outlook drafts. It does **not** write or generate the email content.
+
+I review everything in Outlook and send it myself.
+
+Built with Python and the Microsoft Graph API, it keeps my email workflow simple and mostly in the terminal.
+
+### How it works
+
+```text
+Write email in Markdown
+        ↓
+Specify attachments by filename
+        ↓
+Script finds the files locally
+        ↓
+Create Outlook draft
+        ↓
+Review and send in Outlook
+```
 
 ---
 
