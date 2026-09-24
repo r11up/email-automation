@@ -32,8 +32,8 @@ python3 graph_queue.py read -n 30 --detail        # read 30 inbox emails with fu
 ### 1. Clone
 
 ```bash
-git clone https://github.com/r11up/outlook-draft-queue.git
-cd outlook-draft-queue
+git clone https://github.com/r11up/email-automation.git
+cd email-automation
 ```
 
 ### 2. Register a free Azure app (one-time, ~3 minutes)
