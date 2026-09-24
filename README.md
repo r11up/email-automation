@@ -1,6 +1,6 @@
 # email-automation
 
-This is a tool I built to manage my email outreach from the command line. I write all my emails in plain markdown files, and the tool pushes them to Outlook as drafts — one command, no copy-pasting, no manual attaching. I keep it here for further use and iteration.
+This is a tool I built to manage my email outreach entirely from the command line. I write all my emails in plain markdown files, specify attachment filenames inline, and the script searches my local machine for those files and attaches them automatically. Everything — composing, queuing, attaching, pushing to Outlook — happens in the terminal. I only open Outlook at the very end to hit send.
 
 Works with new Outlook for Mac (2023+). Uses the Microsoft Graph API, so drafts show up instantly everywhere — on the Mac, in the browser, on the phone. Pure Python, no dependencies.
 
@@ -97,7 +97,7 @@ Dear ...,
 | `**To:**` | ✅ | Recipient address |
 | `**Subject:**` | ✅ | Subject line |
 | `**Send:**` | No | Draft only when date has passed, or use `--all` |
-| `**Attach:**` | No | Filename(s), semicolon-separated. Looked up in the same folder as the markdown file. |
+| `**Attach:**` | No | Filename(s), semicolon-separated. The script searches the local machine for each file by name — no need to provide the full path. |
 
 A log file (`graph_queue_log.json`) tracks every draft created — re-running never duplicates. To re-draft an edited item, remove its entry from the log.
 
