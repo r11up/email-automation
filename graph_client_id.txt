@@ -1,0 +1,9 @@
+# Your Azure app client ID goes here.
+# Get it from: https://portal.azure.com → App registrations → your app → Overview
+# It looks like: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+#
+# This is NOT a secret. It's fine to keep it in this file and commit it to git.
+# (The token in graph_token.json IS secret — that file is in .gitignore.)
+#
+# Replace the line below with your own client ID:
+YOUR-CLIENT-ID-HERE
