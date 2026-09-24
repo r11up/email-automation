@@ -243,7 +243,7 @@ Examples:
     ap.add_argument("action", choices=["login", "list", "draft", "read"],
                     help="Action to perform")
     ap.add_argument("--file",      default=str(DEFAULT_FILE),
-                    help="Markdown file containing email queue (default: examples/emails.md)")
+                    help="Markdown file containing email queue (default: emails.md)")
     ap.add_argument("--only",      help="Comma-separated item IDs to draft, e.g. 1,3,7")
     ap.add_argument("--all",       action="store_true",
                     help="Draft all unsent items, ignoring Send: dates")

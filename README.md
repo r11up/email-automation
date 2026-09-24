@@ -1,4 +1,4 @@
-# outlook-draft-queue
+# email-automation
 
 A command-line tool for managing email outreach from plain markdown files via the Microsoft Graph API. Drafts are version-controlled, reviewable as diffs, and pushed to Outlook in one command.
 
@@ -38,18 +38,18 @@ cd email-automation
 
 ### 2. Register a free Azure app (one-time, ~3 minutes)
 
-The Graph API requires an OAuth app to identify the caller. This is a free registration — no subscription, no billing.
+The Graph API requires an OAuth app to identify the caller. Free registration — no subscription, no billing.
 
 1. Open **[portal.azure.com](https://portal.azure.com)** and sign in with your personal Microsoft account  
    *(Use portal.azure.com, not entra.microsoft.com — that one is for organisational accounts only)*
 2. Search for **App registrations** → **New registration**
 3. Fill in:
-   - **Name:** anything — `outlook-draft-queue` works
+   - **Name:** anything — `email-automation` works
    - **Supported account types:** *Accounts in any organizational directory and personal Microsoft accounts*
    - **Redirect URI:** leave blank
    - Click **Register**
 4. On the **Overview** page, copy the **Application (client) ID**
-5. Left menu → **Authentication** → scroll to **Advanced settings** → set **Allow public client flows** to **Yes** → **Save**
+5. Left menu → **Authentication** → **Advanced settings** → set **Allow public client flows** to **Yes** → **Save**
 6. Paste the ID into `graph_client_id.txt`:
 
 ```bash
@@ -64,7 +64,7 @@ The client ID is not a secret — it is fine to commit it.
 python3 graph_queue.py login
 ```
 
-The terminal prints a URL and a short code. Open the URL in any browser, enter the code, sign in. Done in about 30 seconds. The token is saved to `graph_token.json` (chmod 600) and auto-refreshes for ~90 days.
+The terminal prints a URL and a short code. Open the URL in any browser, enter the code, sign in. Takes about 30 seconds. The token is saved to `graph_token.json` (chmod 600) and auto-refreshes for ~90 days.
 
 ---
 
@@ -73,27 +73,27 @@ The terminal prints a URL and a short code. Open the URL in any browser, enter t
 Emails live in plain markdown files. Each `##` section is one email:
 
 ```markdown
-## 1. Prof Jane Doe (University of Example)
+## 1. Recipient Name (Organisation)
 
 **Send:** Mon 9 Nov 2026 · **Deadline:** 1 Dec 2026
-**To:** jane.doe@example.edu
-**Attach:** CV.pdf; Research_Proposal.pdf
-**Subject:** PhD enquiry — machine learning for health data
+**To:** recipient@domain.com
+**Attach:** file.pdf; another_file.pdf
+**Subject:** Subject line here
 
-Dear Prof Doe,
+Dear ...,
 
-[body, exactly as you want it to appear in Outlook]
+[body]
 
 ---
 
-## 2. Dr Bob Smith (Another University)
+## 2. Another Recipient
 
-**To:** bob.smith@another.edu
-**Subject:** PhD enquiry — graph neural networks
+**To:** another@domain.com
+**Subject:** Subject line here
 
-Dear Dr Smith,
+Dear ...,
 
-[...]
+[body]
 ```
 
 | Field | Required | Notes |
@@ -101,11 +101,11 @@ Dear Dr Smith,
 | `**To:**` | ✅ | Recipient address |
 | `**Subject:**` | ✅ | Subject line |
 | `**Send:**` | No | If present, item is only drafted when its date has passed or `--all` is set |
-| `**Attach:**` | No | Filename(s), semicolon-separated. Searched in the markdown file's folder. |
+| `**Attach:**` | No | Filename(s), semicolon-separated. Searched in the same folder as the markdown file. |
 
-The `##` number prefix (e.g. `## 3.`) becomes the ID used with `--only 3`. Use any scheme you like.
+The `##` number prefix (e.g. `## 3.`) becomes the ID used with `--only 3`. Any numbering scheme works.
 
-A duplicate-prevention log (`graph_queue_log.json`) records every draft created. Re-running a command never creates a second copy. To re-draft an item after editing it, remove its entry from the log.
+A duplicate-prevention log (`graph_queue_log.json`) records every draft created. Re-running the same command never creates duplicates. To re-draft an edited item, remove its entry from the log.
 
 ---
 
@@ -124,11 +124,10 @@ python3 graph_queue.py read -n 20 --detail  # full body text
 | File | Purpose |
 |---|---|
 | `graph_queue.py` | Main script — Graph API auth, drafting, reading |
-| `outlook_queue.py` | Original AppleScript version. Still works on Legacy Outlook; also provides the markdown parser used by `graph_queue.py` |
+| `outlook_queue.py` | Legacy AppleScript version. Works on Legacy Outlook only; also provides the markdown parser used by `graph_queue.py` |
 | `graph_client_id.txt` | Your Azure app ID. Not a secret. |
 | `graph_token.json` | OAuth token cache. In `.gitignore`. Never commit. |
 | `graph_queue_log.json` | Draft log. Prevents duplicates. Safe to commit. |
-| `examples/emails.md` | Minimal example showing the markdown format |
 
 ---
 

@@ -45,14 +45,13 @@ from pathlib import Path
 
 # ─── Path configuration ────────────────────────────────────────────────────────
 ROOT         = Path(__file__).resolve().parent
-DEFAULT_FILE = ROOT / "examples" / "emails.md"
+DEFAULT_FILE = ROOT / "emails.md"
 LOG          = ROOT / "outlook_queue_log.json"
 
 # Directories to search for attachment files (in order).
-# Add your own directories here if your CVs / PDFs are elsewhere.
+# Add your own directories here if your files are elsewhere.
 CV_DIRS = [
-    ROOT / "examples",   # files in the examples folder
-    ROOT,                # same folder as this script
+    ROOT,   # same folder as this script
 ]
 
 
